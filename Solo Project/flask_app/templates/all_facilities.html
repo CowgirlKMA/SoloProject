@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Facilities where you can stay with your horse from a couple hours to overnight.">
+    <meta name="keywords" content="html, forms">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+    <title>Horsin' Around / All Facilities</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container">
+            <img src="{{ url_for('static', filename='vector-cartoon.png') }}" alt="horse cartoon" width="85">
+                <a class="navbar-brand"  href="/">Horsin' Around</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class=" nav-item">
+                        <a class="nav-link" href="/facilities/new">Recommend a new facility!</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="bg-body-secondary bg-body-secondary p-1 mb-3">
+        <div class="container d-flex justify-content-between alight-items-center">
+            <p class="mb-0">{{ user.email }}</p>
+            <p class="mb-0">
+                <a href="/users/logout">Logout</a>
+            </p>
+        </div>
+    </div>
+    <div class="container">
+        <h1 class="mt-5 mb-5 fst-italic">Howdy Partner! Good to see you {{ user.first_name }}!</h1>
+        <h2 class="mb-3">All Facilities</h2>
+        <table class="table table-striped table-hover table-bordered mb-5">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Contact name</th>
+                    <th>Phone number</th>
+                    <th>Location</th>
+                    <th>Less than 5 miles from I-70</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for facility in facilities %}
+                    <tr>
+                        <td>{{ facility.facility_name }}</td>
+                        <td>{{ facility.contact }}</td>
+                        <td>{{ facility.phone_number }}</td>
+                        <td>{{ facility.location }}</td>
+                        <td>{{ 'Yes' if facility.distance_from_I70 else 'No'}}</td>
+                        <td><a href="/facilities/{{ facility.id }}">details</a>
+                            </form>
+                                {% if facility.user_id == session.user_id %}
+                                    <a href="/facilities/{{ facility.id }}/edit" method="post">edit</a>
+                                    <a href="/facilities/{{ facility.id }}/delete">delete</a>
+                                {% endif %}
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <h2 class=" mb-3">Your Recommendations</h2>
+        <table class="table table-striped table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Contact name</th>
+                    <th>Phone number</th>
+                    <th>Location</th>
+                    <th>Less than 5 miles from I-70</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for facility in facilities %}
+                    {% if facility.user_id == session.user_id %}
+                    <tr>
+                        <td>{{ facility.facility_name }}</td>
+                        <td>{{ facility.contact }}</td>
+                        <td>{{ facility.phone_number }}</td>
+                        <td>{{ facility.location }}</td>
+                        <td>{{ 'Yes' if facility.distance_from_I70 else 'No' }}</td>
+                        <td><a href="/facilities/{{ facility.id }}">details</a>
+                            </form>
+                                {% if facility.user_id == session.user_id %}
+                                    <a href="facilities/{{ facility.id }}/edit" method="post">edit</a>
+                                    <a href="/facilities/{{ facility.id }}/delete" method="post">delete</a>
+                                {% endif %}
+                            </form>
+                        </td>
+                    </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous"></script>
+    </body>
+</html>

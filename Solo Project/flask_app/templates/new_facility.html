@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Facilities where you can stay with your horse from a couple hours to overnight.">
+    <meta name="keywords" content="html, forms"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+    <title>Horsin' Around / New Facility</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container">
+            <img src="{{ url_for('static', filename='vector-cartoon.png') }}" alt="horse cartoon" width="85">
+                <a class="navbar-brand"  href="/">Horsin' Around</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav"aria-expanded ="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class=" nav-item">
+                        <a class="nav-link" href="/facilities/all">Return to all facilities</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="bg-body-secondary p-1 mb-3">
+        <div class="container d-flex justify-content-between alight-items-center">
+            <p class="mb-0">{{ user.email }}</p>
+            <p class="mb-0">
+                <a href="/users/logout">Logout</a>
+            </p>
+        </div>
+    </div>
+    <div class="container">
+            <h1 class="mb-5 mt-5 fst-italic">Recommend a New Facility</h1>
+            <p>Please make sure to fill everything out.</p>
+    </div>
+    <div class="container">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                            <div
+                                class="alert alert-success alert-dismissible fade show"
+                                role="alert">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        <div class="card shadow mb-3">
+            <div class="card-body"></div>
+                <form action="/facilities/create" method="post">
+                    <input type="hidden" name="user_id" value="{{ session.user_id }}">
+                    <div class="form-floating mb-3">
+                        <input type="text" name="facility_name" id="facility_name" class="form-control" placeholder="name of facility:">
+                        <label for="title">Name of facility: </label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" name="contact" id="contact" class="form-control" placeholder="contact:">
+                        <label for="contact">Contact name: </label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="tel" name="phone_number" id="phone_number" class="form-control" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="123-456-7890:">
+                        <label class="mt-1" for="phone_number">Phone number (xxx-xxx-xxxx): </label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" name="location" id="location" class="form-control" placeholder="location:">
+                        <label for="location">Location (city, state): </label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <fieldset class="mb-3 ms-3">
+                            <legend class="fs-6">Less than 5 miles from I-70?</legend>
+                            <div class="form-check"> 
+                                <input 
+                                    class="form-check-input"
+                                    type="radio" 
+                                    name="distance_from_I70" 
+                                    id="yes"
+                                    value="1">
+                                <label class="form-check-label" for="yes">Yes</label>
+                            </div>
+                            <div class="form-check"> 
+                                <input 
+                                    class="form-check-input"
+                                    type="radio" 
+                                    name="distance_from_I70" 
+                                    id="no"
+                                    value="0">
+                                <label class="form-check-label" for="no">No</label>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <textarea name="amenities" id="amenities" class="form-control textarea" placeholder="amenities">
+{{ session.amenities if "amenities" in session else '' }}
+                        </textarea>
+                        <label for="amenities">Provided amenities: </label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add facility</button>
+                </form>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous"></script>
+    </body>
+</html>
