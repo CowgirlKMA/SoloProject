@@ -92,8 +92,7 @@
                             </div>
                         </fieldset>
                         <div class="form-floating mb-3">
-                            <!-- <textarea name="amenities" id="amenities" class="form-control textarea" placeholder="Amenities:">{{ facility.amenities }}</textarea> -->
-                            <textarea name="amenities" id="amenities" class="form-control textarea">
+                            <textarea name="amenities" id="amenities" class="form-control textarea" placeholder="Amenities:">
 {{ session.amenities if "amenities" in session else facility.amenities }}</textarea>
                             <label for="amenities">Amenities : </label>
                         </div>
