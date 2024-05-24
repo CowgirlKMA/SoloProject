@@ -1,0 +1,32 @@
+Name: Katherine "Katie" Ayers
+
+Stack: Python
+
+GitHub Repo Link: https://github.com/CowgirlKMA/SoloProject.git
+
+Project Name: Horsin' Around
+
+Project Description: A web application that allows you to look up locations/businesses/ranches that offer their
+facilities for you and your horse to stay from a few hours to an overnight as you are travelling to some other 
+destination 
+
+MVP features:
+All of CRUD* on a non-User table	
+CSS implemented, and possibly other static content	
+Data is validated upon create and edit, errors show	
+Login and Registration with validations	
+Protected routes (Must be logged in to view)
+
+Bonus features:
+**I will be using bootstrap**
+Application uses a CSS framework such as Bootstrap  
+**if time allows I will attempt some of the following, regardless I will be building onto this project 
+  and I intend to eventually have all of the features below**
+Application is responsive	
+Application is publicly deployed	
+Application features a third-party API	
+File Upload	
+Many-to-many relationship (like, favorite, RSVP, etc)
+**I won't be attempting these features**	
+AJAX			
+Project uses Django instead of Flask	
